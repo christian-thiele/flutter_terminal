@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'pages/main_page.dart';
+import 'pages.dart';
 
 void main() {
   runApp(App());
@@ -13,7 +13,15 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'Terminal',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
+        brightness: Brightness.dark,
+        textTheme: TextTheme(
+          bodyText1: TextStyle(
+            color: Colors.green,
+            fontFamily: 'RobotoMono',
+            fontWeight: FontWeight.w300,
+          ),
+        ),
       ),
       home: MainPage(),
     );
