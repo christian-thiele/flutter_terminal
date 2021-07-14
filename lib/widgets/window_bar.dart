@@ -26,7 +26,10 @@ class WindowBar extends StatelessWidget {
                 WindowButton(color: Colors.red),
               ],
             ),
-            Text(title),
+            Text(
+              title,
+              style: Theme.of(context).textTheme.caption,
+            ),
           ],
         ),
       ),

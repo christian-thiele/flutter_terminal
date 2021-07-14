@@ -9,6 +9,8 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  String _text = 'This is text displayed in the terminal window...';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,9 +23,7 @@ class _MainPageState extends State<MainPage> {
                     (constraints.maxWidth > 1024.0) ? 128.0 : 64.0),
                 child: AspectRatio(
                   aspectRatio: 1.6,
-                  child: TerminalWindow(
-                    title: 'ssh',
-                  ),
+                  child: _buildTerminal(),
                 ),
               ),
             );
@@ -32,14 +32,24 @@ class _MainPageState extends State<MainPage> {
               padding: const EdgeInsets.all(8.0),
               child: ConstrainedBox(
                 constraints: BoxConstraints.expand(),
-                child: TerminalWindow(
-                  title: 'ssh',
-                ),
+                child: _buildTerminal(),
               ),
             );
           }
         },
       ),
+    );
+  }
+
+  _buildTerminal() {
+    return TerminalWindow(
+      title: 'Terminal',
+      text: _text,
+      onSend: (value) {
+        setState(() {
+          _text += '\n\$ $value';
+        });
+      },
     );
   }
 }

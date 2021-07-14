@@ -16,10 +16,22 @@ class App extends StatelessWidget {
         primarySwatch: Colors.green,
         brightness: Brightness.dark,
         textTheme: TextTheme(
+          // window title
+          caption: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.w400,
+          ),
+          // window content 1
           bodyText1: TextStyle(
+            color: Colors.white,
+            fontFamily: 'RobotoMono',
+            fontWeight: FontWeight.w400,
+          ),
+          // window content 2
+          bodyText2: TextStyle(
             color: Colors.green,
             fontFamily: 'RobotoMono',
-            fontWeight: FontWeight.w300,
+            fontWeight: FontWeight.w400,
           ),
         ),
       ),
