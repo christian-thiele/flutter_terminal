@@ -17,6 +17,7 @@ class TerminalContent extends StatefulWidget {
 class _TerminalContentState extends State<TerminalContent> {
   final FocusNode _focusNode = FocusNode();
   final TextEditingController _textEditingController = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -33,6 +34,7 @@ class _TerminalContentState extends State<TerminalContent> {
         child: DefaultTextStyle(
           style: Theme.of(context).textTheme.bodyText1!,
           child: Scrollbar(
+            controller: _scrollController,
             radius: Radius.circular(4.0),
             isAlwaysShown: true,
             showTrackOnHover: true,
@@ -40,6 +42,7 @@ class _TerminalContentState extends State<TerminalContent> {
             thickness: 8.0,
             hoverThickness: 8.0,
             child: SingleChildScrollView(
+              controller: _scrollController,
               child: Padding(
                 padding: const EdgeInsets.all(4.0),
                 child: Column(
@@ -91,5 +94,11 @@ class _TerminalContentState extends State<TerminalContent> {
     _textEditingController.text = '';
     widget.onSend?.call(value);
     _focusNode.requestFocus();
+    Future.delayed(Duration(milliseconds: 50))
+        .then((value) => _scrollController.position.animateTo(
+              _scrollController.position.maxScrollExtent,
+              duration: Duration(milliseconds: 50),
+              curve: Curves.easeInOut,
+            ));
   }
 }

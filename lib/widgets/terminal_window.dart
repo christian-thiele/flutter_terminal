@@ -18,7 +18,7 @@ class TerminalWindow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      elevation: 15,
+      elevation: 5.0,
       borderRadius: BorderRadius.circular(4.0),
       clipBehavior: Clip.antiAlias,
       child: Column(
