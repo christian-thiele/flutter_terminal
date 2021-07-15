@@ -9,8 +9,6 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  String _text = 'This is text displayed in the terminal window...';
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,11 +42,16 @@ class _MainPageState extends State<MainPage> {
   _buildTerminal() {
     return TerminalWindow(
       title: 'Terminal',
-      text: _text,
-      onSend: (value) {
-        setState(() {
-          _text += '\n\$ $value';
-        });
+      commandHandler: (command) async* {
+        yield 'executing $command:\n';
+        await Future.delayed(Duration(seconds: 1));
+        yield 'loading';
+        for(var i = 0; i<5; i++) {
+          await Future.delayed(Duration(milliseconds: 100));
+          yield '.';
+        }
+        await Future.delayed(Duration(seconds: 1));
+        yield '\ndone!';
       },
     );
   }

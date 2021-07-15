@@ -5,14 +5,12 @@ import 'terminal_content.dart';
 
 class TerminalWindow extends StatelessWidget {
   final String title;
-  final String text;
-  final void Function(String text)? onSend;
+  final Stream<String> Function(String text)? commandHandler;
 
   const TerminalWindow({
     Key? key,
     required this.title,
-    required this.text,
-    this.onSend,
+    this.commandHandler,
   }) : super(key: key);
 
   @override
@@ -27,8 +25,7 @@ class TerminalWindow extends StatelessWidget {
           WindowBar(title: title),
           Expanded(
             child: TerminalContent(
-              text: text,
-              onSend: onSend,
+              commandHandler: commandHandler,
             ),
           )
         ],
