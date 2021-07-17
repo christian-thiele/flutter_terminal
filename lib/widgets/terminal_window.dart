@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_terminal/widgets/window_bar.dart';
+import 'package:flutter_terminal/controller.dart';
 
+import 'window_bar.dart';
 import 'terminal_content.dart';
 
 class TerminalWindow extends StatelessWidget {
   final String title;
-  final Stream<String> Function(String text)? commandHandler;
+  final TerminalController controller;
 
   const TerminalWindow({
     Key? key,
     required this.title,
-    this.commandHandler,
+    required this.controller,
   }) : super(key: key);
 
   @override
@@ -25,7 +26,7 @@ class TerminalWindow extends StatelessWidget {
           WindowBar(title: title),
           Expanded(
             child: TerminalContent(
-              commandHandler: commandHandler,
+              controller: controller,
             ),
           )
         ],

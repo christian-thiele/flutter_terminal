@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_terminal/controller.dart';
 import 'package:flutter_terminal/widgets.dart';
 
 class MainPage extends StatefulWidget {
@@ -11,48 +12,43 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-          if (constraints.maxWidth > 512.0) {
-            return Center(
-              child: Padding(
-                padding: EdgeInsets.all(
-                    (constraints.maxWidth > 1024.0) ? 128.0 : 64.0),
-                child: AspectRatio(
-                  aspectRatio: 1.6,
-                  child: _buildTerminal(),
-                ),
-              ),
-            );
-          } else {
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ConstrainedBox(
-                constraints: BoxConstraints.expand(),
-                child: _buildTerminal(),
-              ),
-            );
-          }
-        },
-      ),
+    return TerminalPage(
+      // TODO edit window title
+      title: 'My Terminal',
+      commandHandler: _handleCommand,
     );
   }
 
-  _buildTerminal() {
-    return TerminalWindow(
-      title: 'Terminal',
-      commandHandler: (command) async* {
-        yield 'executing $command:\n';
-        await Future.delayed(Duration(seconds: 1));
-        yield 'loading';
-        for(var i = 0; i<5; i++) {
-          await Future.delayed(Duration(milliseconds: 100));
-          yield '.';
+  // TODO implement terminal commands
+  // Return true if command has been handled, return false for "not found" message.
+  // These are example commands:
+  Future<bool> _handleCommand(
+      TerminalController controller, String command, List<String> args) async {
+    switch (command.toLowerCase()) {
+      case 'add':
+        try {
+          final x1 = double.parse(args[0]);
+          final x2 = double.parse(args[1]);
+          controller.println('$x1 + $x2 = ${x1 + x2}');
+        } catch (e) {
+          controller.println('Enter first number:');
+          final x1 = await controller.requestInputDouble();
+          controller.println('Enter second number:');
+          final x2 = await controller.requestInputDouble();
+          controller.println('$x1 + $x2 = ${x1 + x2}');
         }
-        await Future.delayed(Duration(seconds: 1));
-        yield '\ndone!';
-      },
-    );
+        return true;
+      case 'booltest':
+        controller.println('Yes or No?');
+        final answer = await controller.requestInputBool();
+        if (answer) {
+          controller.println('You answered YES!');
+        } else {
+          controller.print('You answered NO!');
+        }
+        return true;
+    }
+
+    return false;
   }
 }

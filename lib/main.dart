@@ -11,6 +11,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      // TODO edit for page title
       title: 'Terminal',
       theme: ThemeData(
         primarySwatch: Colors.green,
