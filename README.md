@@ -4,6 +4,8 @@ A Geeky WebApp simulating a terminal for entertainment purposes.
 
 _Maybe even for serious things? Who knows..._
 
+![Screenshot](https://i.imgur.com/iWVaE34.png)
+
 ## Setup
 
 Customize the terminal by searching for _TODO's_ in the code.
